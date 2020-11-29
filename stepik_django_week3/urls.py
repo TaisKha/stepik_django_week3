@@ -21,7 +21,7 @@ from vacancies_app.views import MainView, VacanciesList, SpecialtyVacancy, Compa
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', MainView.as_view(), name='main'),
-    path('vacancies/', VacanciesList.as_view(),name='vacancies'),
+    path('vacancies/', VacanciesList.as_view(), name='vacancies'),
     path('vacancies/cat/<str:code>/', SpecialtyVacancy.as_view(), name='specialty'),
     path('companies/<int:company_id>/', Company.as_view(), name='company'),
     path('vacancies/<int:vacancy>', Vacancy.as_view(), name='vacancy'),
