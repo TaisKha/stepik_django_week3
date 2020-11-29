@@ -2,3 +2,17 @@ asgiref==3.3.1
 Django==3.1.3
 pytz==2020.4
 sqlparse==0.4.1
+
+flake8-blind-except
+flake8-builtins
+flake8-logging-format
+flake8-commas
+flake8-print
+pep8-naming
+flake8-cognitive-complexity
+flake8-expression-complexity
+flake8-functions
+flake8-variables-names
+flake8-comprehensions
+flake8-django
+flake8-eradicate
