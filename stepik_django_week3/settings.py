@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'vacancies_app',
+    'template_helpers',
 ]
 
 MIDDLEWARE = [
@@ -83,11 +84,15 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'template_helpers.context_processors.settings',
             ],
         },
     },
 ]
-
+TEMPLATE_EXPOSED_SETTINGS = (
+    'DEBUG',
+    'SOME_PUBLIC_API_TOKEN',
+)
 WSGI_APPLICATION = 'stepik_django_week3.wsgi.application'
 
 # Database

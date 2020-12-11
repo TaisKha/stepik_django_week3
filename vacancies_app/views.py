@@ -2,7 +2,7 @@ from django.http import HttpResponseNotFound
 from django.shortcuts import render
 from django.views import View
 
-from vacancies_app.models import SpecialtyModel, VacancyModel, CompanyModel
+from vacancies_app.models import Specialty, Vacancy, Company
 
 
 def custom_handler404(request, exception):
@@ -15,10 +15,10 @@ def custom_handler500(request):
 
 class MainView(View):
     def get(self, request):
-        specialties = SpecialtyModel.objects.all()
+        specialties = Specialty.objects.all()
 
-        vacancies = VacancyModel.objects.all()
-        companies = CompanyModel.objects.all()
+        vacancies = Vacancy.objects.all()
+        companies = Company.objects.all()
         vacancy_cnt = {}
         company_cnt = {}
         for specialty in specialties:
@@ -29,32 +29,29 @@ class MainView(View):
         return render(request, 'index.html', context=context)
 
 
-class VacanciesList(View):
+class VacanciesListView(View):
     def get(self, request):
-        vacancies = VacancyModel.objects.all()
-        for vacancy in vacancies:
-            lst = vacancy.skills.split(',')
-            vacancy.skills = ' •'.join(lst)
+        vacancies = Vacancy.objects.all()
         return render(request, 'vacancies.html', {'vacancies': vacancies})
 
 
-class SpecialtyVacancy(View):
+class SpecialtyVacancyView(View):
     def get(self, request, code):
-        vacancies = VacancyModel.objects.filter(specialty__code=code)
-        context = {'speciality': SpecialtyModel.objects.all().get(code__exact=code),
+        vacancies = Vacancy.objects.filter(specialty__code=code)
+        context = {'speciality': Specialty.objects.all().get(code__exact=code),
                    'vacancies': vacancies}
         return render(request, 'vacancies_specialization.html', context=context)
 
 
-class Company(View):
+class CompanyView(View):
     def get(self, request, company_id):
-        vacancies = VacancyModel.objects.filter(company__id=company_id)
-        context = {'company': CompanyModel.objects.all().get(id__exact=company_id),
+        vacancies = Vacancy.objects.filter(company__id=company_id)
+        context = {'company': Company.objects.all().get(id__exact=company_id),
                    'vacancies': vacancies}
         return render(request, 'company.html', context=context)
 
 
-class Vacancy(View):
+class VacancyView(View):
     def get(self, request, vacancy):
-        vacancy = VacancyModel.objects.get(id__exact=vacancy)
+        vacancy = Vacancy.objects.get(id=vacancy)
         return render(request, 'vacancy.html', {'vacancy': vacancy})

@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+{% load template_helpers %}
     <main class="container mt-3">
         <section>
             <h1 class="h1 text-center mx-auto mt-4 pt-5" style="font-size: 70px;">
@@ -14,7 +15,10 @@
                                 <div class="row">
                                     <div class="col-12 col-md-8 col-lg-9">
                                         <h2 class="h2 pb-2">{{ vacancy.title }}</h2>
-                                        <p class="mb-2">{{ vacancy.specialty.title }} • {{ vacancy.skills }}</p>
+                                        <p class="mb-2">{{ vacancy.specialty.title }} •
+                                            {% for skill in vacancy.skills|split:"," %}
+                                                • {{ skill }}
+                                            {% endfor %}</p></p>
                                         <p>От {{ vacancy.salary_min }} до {{ vacancy.salary_max }} руб.</p>
                                         <p class="text-muted pt-1">{{ vacancy.published_at|date }}</p>
                                     </div>
